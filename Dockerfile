@@ -9,9 +9,10 @@ RUN apt-get clean
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install --no-install-recommends -y curl wget git libmagic-dev gcc binutils libproj-dev gdal-bin tzdata cron rsyslog net-tools 
-RUN apt-get install --no-install-recommends -y postfix dovecot-imapd libsasl2-modules syslog-ng syslog-ng-core mailutils postfix-pcre postfix-policyd-spf-python
+RUN apt-get install --no-install-recommends -y postfix dovecot-imapd libsasl2-modules syslog-ng syslog-ng-core mailutils postfix-pcre postfix-policyd-spf-python 
+RUN apt-get install --no-install-recommends -y libmail-imapclient-perl libcrypt-cbc-perl libcrypt-blowfish-perl libio-socket-ssl-perl
 RUN apt-get install --no-install-recommends -y opendkim opendkim-tools
-RUN apt-get install -y vim telnet
+RUN apt-get install -y vim telnet rsync ssh mtr dnsutils fail2ban iptables
 # Example Self Signed Cert
 RUN apt-get install -y openssl
 RUN openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj  "/C=AU/ST=Western Australia/L=Perth/O=Digital Reach Insight/OU=IT Department/CN=example.com"  -keyout /etc/ssl/private/selfsignedssl.key -out /etc/ssl/private/selfsignedssl.crt
@@ -35,5 +36,6 @@ RUN touch /etc/cron.d/dockercron
 RUN cron /etc/cron.d/dockercron
 RUN chmod 755 /boot.sh
 EXPOSE 25
-#HEALTHCHECK --interval=5s --timeout=2s CMD ["wget", "--timeout=15", "--tries=3", "-q", "-O", "-", "http://localhost:80/"]
+HEALTHCHECK --interval=5s --timeout=2s CMD netstat -ant | grep LISTEN | grep -e ':587\|:143\|:465\|:25\|:993' | wc -l | grep 10 || exit 1
 CMD ["/boot.sh"]
+
