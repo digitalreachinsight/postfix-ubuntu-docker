@@ -150,6 +150,48 @@ ln -s /shared-mount/opendkim/opendkim.conf /etc/opendkim.conf
 
 
 
+#
+
+
+chown -R opendkim.opendkim $shared_dir/opendkim
+chown -R www-data.www-data $shared_dir/postfix-conf
+chown -R www-data.www-data $shared_dir/run.container
+chown -R www-data.www-data $shared_dir/sync_relays.sh
+chown -R www-data.www-data $shared_dir/account_manager.sh
+chown -R www-data.www-data $shared_dir/accounts.txt
+chown -R www-data.www-data $shared_dir/dovecot-conf
+chown -R www-data.www-data $shared_dir/keys
+chmod -R 0600 $shared_dir/keys
+# queue dir
+chmod 777 $shared_dir/queue_dir
+chown -R postfix $shared_dir/queue_dir/active
+chmod 0700 $shared_dir/queue_dir/active
+chown -R postfix $shared_dir/queue_dir/bounce
+chmod 0700 $shared_dir/queue_dir/bounce
+chown -R postfix $shared_dir/queue_dir/corrupt
+chmod 0700 $shared_dir/queue_dir/corrupt
+chown -R postfix $shared_dir/queue_dir/defer
+chmod 0700 $shared_dir/queue_dir/defer
+chown -R postfix $shared_dir/queue_dir/deferred
+chmod 0700 $shared_dir/queue_dir/deferred
+chown -R postfix $shared_dir/queue_dir/flush
+chmod 0700 $shared_dir/queue_dir/flush
+chown -R postfix $shared_dir/queue_dir/hold
+chmod 0700 $shared_dir/queue_dir/hold
+chown -R postfix $shared_dir/queue_dir/incoming
+chmod 0700 $shared_dir/queue_dir/incoming
+chown -R postfix.postdrop $shared_dir/queue_dir/maildrop
+chmod 0730 $shared_dir/queue_dir/maildrop
+chown -R opendkim.postfix $shared_dir/queue_dir/opendkim
+chmod 0755  $shared_dir/queue_dir/opendkim
+chown -R postfix $shared_dir/queue_dir/private
+chmod 0700 $shared_dir/queue_dir/private
+chown -R postfix.postdrop $shared_dir/queue_dir/public
+chmod 0710 $shared_dir/queue_dir/public
+chown -R postfix $shared_dir/queue_dir/saved
+chmod 0700 $shared_dir/queue_dir/saved
+chown -R postfix $shared_dir/queue_dir/trace
+chmod 0700 $shared_dir/queue_dir/trace
 
 # queue directory
 
